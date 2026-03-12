@@ -11,12 +11,17 @@ The secret code is ||1234-5678||
 My API key is ||sk-abc123xyz||
 ```
 
-Masked text appears as a solid bar. **Click to reveal**, click again to hide.
+Masked text appears as a solid bar.
+
+- **Click** to copy the hidden text to your clipboard
+- **Hold for 3 seconds** to reveal the text (hides again on release)
 
 ## Features
 
 - **Inline syntax** — `||your text here||`
-- **Reading mode** — spoilers are always hidden until clicked
+- **Click to copy** — quickly grab masked content without revealing it
+- **Long press to reveal** — hold for 3 seconds to peek at the hidden text
+- **Reading mode** — spoilers are always hidden
 - **Live preview** — spoilers are masked, but raw syntax shows when your cursor is inside the range for easy editing
 - **Theme-aware** — mask color adapts to your Obsidian theme
 
