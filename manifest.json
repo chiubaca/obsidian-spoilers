@@ -1,0 +1,9 @@
+{
+  "id": "obsidian-spoilers",
+  "name": "Obsidian Spoilers",
+  "version": "1.0.0",
+  "minAppVersion": "1.0.0",
+  "description": "Hide spoilers with ||text|| syntax. Click to reveal.",
+  "author": "Alex Chiu",
+  "isDesktopOnly": false
+}

@@ -1,0 +1,21 @@
+/* Masked state */
+.spoiler-mask {
+  background-color: var(--text-normal);
+  color: transparent;
+  border-radius: 3px;
+  padding: 0 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.spoiler-mask:hover {
+  opacity: 0.8;
+}
+
+/* Revealed state */
+.spoiler-mask--revealed {
+  background-color: var(--background-modifier-error);
+  color: var(--text-normal);
+  user-select: text;
+}
