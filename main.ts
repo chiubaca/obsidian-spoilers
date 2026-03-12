@@ -1,4 +1,4 @@
-import { Plugin } from "obsidian";
+import { Notice, Plugin } from "obsidian";
 import {
   EditorView,
   Decoration,
@@ -62,14 +62,51 @@ function createMaskedSpan(content: string): HTMLElement {
   span.className = "spoiler-mask";
   span.dataset.content = content;
   span.textContent = "•".repeat(Math.max(content.length, 4));
-  span.setAttribute("aria-label", "Click to reveal spoiler");
+  span.setAttribute("aria-label", "Click to copy, hold to reveal");
 
-  span.addEventListener("click", (e) => {
+  let pressTimer: ReturnType<typeof setTimeout> | null = null;
+  let didReveal = false;
+
+  const reveal = () => {
+    didReveal = true;
+    span.classList.add("spoiler-mask--revealed");
+    span.textContent = content;
+  };
+
+  const hide = () => {
+    span.classList.remove("spoiler-mask--revealed");
+    span.textContent = "•".repeat(Math.max(content.length, 4));
+    didReveal = false;
+  };
+
+  span.addEventListener("mousedown", (e) => {
     e.stopPropagation();
-    const isRevealed = span.classList.toggle("spoiler-mask--revealed");
-    span.textContent = isRevealed
-      ? content
-      : "•".repeat(Math.max(content.length, 4));
+    didReveal = false;
+    pressTimer = setTimeout(reveal, 3000);
+  });
+
+  span.addEventListener("mouseup", (e) => {
+    e.stopPropagation();
+    if (pressTimer) {
+      clearTimeout(pressTimer);
+      pressTimer = null;
+    }
+    if (didReveal) {
+      hide();
+    } else {
+      navigator.clipboard.writeText(content);
+      new Notice("Copied to clipboard");
+    }
+  });
+
+  span.addEventListener("mouseleave", () => {
+    if (pressTimer) {
+      clearTimeout(pressTimer);
+      pressTimer = null;
+    }
+    if (didReveal) {
+      hide();
+    }
   });
 
   return span;
